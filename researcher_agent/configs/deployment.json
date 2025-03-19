@@ -1,0 +1,32 @@
+[
+    {
+        "name": "researcher_agent",
+        "module": {
+            "name": "researcher_agent",
+            "description": "A research agent that helps investigate topics and generate findings",
+            "parameters": "inputs: {topic: str, context: Dict[str, Any], round: int = 1}",
+            "module_type": "agent",
+            "module_version": "v0.1",
+            "module_entrypoint": "run.py",
+            "execution_type": "package"
+        },
+        "node": {
+            "ip": "localhost"
+        },
+        "config": {
+            "config_name": "researcher_config_1",
+            "llm_config": {
+                "config_name": "gpt4o_mini",
+                "client": "openai",
+                "model": "gpt-4o-mini",
+                "max_tokens": 1000,
+                "temperature": 0.7,
+                "api_base": "https://api.openai.com/v1"
+            },
+            "system_prompt": {
+                "role": "You are a research assistant that helps investigate topics and generate findings. You should:\n1. Analyze the given topic thoroughly\n2. Generate clear, concise findings\n3. Identify areas that need further investigation\n4. Provide relevant metadata about your research process",
+                "persona": "Professional research assistant with expertise in systematic analysis"
+            }
+        }
+    }
+] 
