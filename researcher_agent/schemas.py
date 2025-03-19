@@ -2,7 +2,7 @@ from pydantic import BaseModel, Field
 from typing import Dict, List, Any, Optional
 
 
-class ResearchInput(BaseModel):
+class InputSchema(BaseModel):
     topic: str = Field(..., title="Topic to research")
     context: Dict[str, Any] = Field(default_factory=dict, title="Current research context")
     round: int = Field(default=1, title="Current research round")

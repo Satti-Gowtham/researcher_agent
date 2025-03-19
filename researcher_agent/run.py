@@ -2,7 +2,7 @@ from dotenv import load_dotenv
 import json
 import logging
 import os
-from researcher_agent.schemas import ResearchInput, ResearchOutput
+from researcher_agent.schemas import InputSchema, ResearchOutput
 from typing import Dict, List, Any
 from naptha_sdk.schemas import AgentDeployment, AgentRunInput
 from naptha_sdk.inference import InferenceClient
@@ -108,7 +108,7 @@ class ResearcherAgent:
         
         return metadata
 
-    async def research(self, inputs: ResearchInput) -> Dict[str, Any]:
+    async def research(self, inputs: InputSchema) -> Dict[str, Any]:
         """Run research on the given topic."""
         # First research pass to get findings and metadata
         messages = [{"role": "system", "content": json.dumps(self.deployment.config.system_prompt)}]
@@ -170,7 +170,7 @@ async def run(module_run: Dict, *args, **kwargs):
     """Main entry point for the module."""
     try:
         run_input = AgentRunInput(**module_run)
-        run_input.inputs = ResearchInput(**run_input.inputs)
+        run_input.inputs = InputSchema(**run_input.inputs)
         researcher = ResearcherAgent(run_input.deployment)
         result = await researcher.research(run_input.inputs)
         return result
